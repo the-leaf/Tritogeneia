@@ -12,7 +12,8 @@
         ADD backup-athena.sh /
         ADD import-athena.sh /
     WORKDIR /usr/bin/rathena/		
-        RUN apt-get update \
+        RUN add-apt-repository ppa:ondrej/php \
+         && sudo apt-get update \
          && mkdir /datastore/ \
          && mkdir /datastore/etc-apache2/ \
          && mkdir /datastore/etc-mysql/ \
@@ -29,6 +30,7 @@
          && apt-get -yqq --force-yes install apache2 \
                                              g++ \
                                              git \
+                                             php7.2 \
                                              libapache2-mod-php7.2 \
                                              libmysqlclient-dev \
                                              libpcre3-dev \
