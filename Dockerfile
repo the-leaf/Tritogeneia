@@ -89,4 +89,3 @@
         ENV PHP_POST_MAX_SIZE 10M
         CMD bash
  ENTRYPOINT /boottime.sh
- ENTRYPOINT /launch-athena.sh
