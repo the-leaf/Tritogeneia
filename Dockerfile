@@ -6,6 +6,9 @@
         ADD boottime.sh /
         ADD import.sql /
         ADD 000-default.conf /
+        ADD login_athena.conf /
+        ADD char_athena.conf /
+        ADD map_athena.conf /
         ADD my.cnf /
         ADD launch-athena.sh /
         ADD reset-athena.sh /
@@ -64,6 +67,9 @@
          && chown -R 33:33 /datastore \
          && a2enmod rewrite \
          && mv -f /000-default.conf /etc/apache2/sites-available/ \
+         && mv -f /login_athena.conf /usr/bin/rathena/conf/ \
+         && mv -f /char_athena.conf /usr/bin/rathena/conf/ \
+         && mv -f /map_athena.conf /usr/bin/rathena/conf/ \
          && mv -f /my.cnf /etc/mysql/conf.d/ \
          && rsync -az /etc/apache2/ /datastoresetup/etc-apache2/ \
          && rsync -az /etc/mysql/ /datastoresetup/etc-mysql/ \
@@ -72,7 +78,7 @@
          && rsync -az /var/www/html/ /datastoresetup/var-www-html/
         ENV DEBIAN_FRONTEND interactive
     WORKDIR /
-     EXPOSE 80 443 3306 5121 6121 6900
+     EXPOSE 8888 443 3306 20333 20331 20330
      VOLUME /datastore/
      VOLUME /etc/apache2/
      VOLUME /atc/mysql/
@@ -83,5 +89,4 @@
         ENV PHP_POST_MAX_SIZE 10M
         CMD bash
  ENTRYPOINT /boottime.sh
-
-# docker run -it -p 20000:80 -p 20001:443 -p 20002:3306 -p 20003:5121 -p 20004:6121 -p 20005:6900 -v ~/Desktop/datastore/:/datastore/ -v ~/Desktop/datastore/etc-apache2/:/datastore/etc/apache2/ -v ~/Desktop/datastore/etc-mysql/:/datastore/etc/mysql/ -v ~/Desktop/datastore/usr-bin-rathena/:/datastore/usr/bin/rathena/ -v ~/Desktop/datastore/var-lib-mysql/:/datastore/var/lib/mysql/ --name Aegis georgegeorgulasiv/tritogeneia
+ ENTRYPOINT /launch-athena.sh
