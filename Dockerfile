@@ -12,8 +12,10 @@
         ADD backup-athena.sh /
         ADD import-athena.sh /
     WORKDIR /usr/bin/rathena/		
-        RUN add-apt-repository ppa:ondrej/php \
-         && sudo apt-get update \
+        RUN apt-get update \
+         && apt-get -y install software-properties-common \
+         && add-apt-repository ppa:ondrej/php \
+         && apt-get update \
          && mkdir /datastore/ \
          && mkdir /datastore/etc-apache2/ \
          && mkdir /datastore/etc-mysql/ \
