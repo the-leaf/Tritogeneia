@@ -48,7 +48,7 @@
          && rm -rf /var/www/html \
          && git clone https://github.com/rathena/FluxCP.git /var/www/html \
          && git clone https://github.com/rathena/rathena.git /usr/bin/rathena \
-         && ./configure --enable-packetver=20131223 \
+         && ./configure --enable-packetver=20191224 \
          && make server \
          && service mysql start \
          && mysql < /import.sql \
