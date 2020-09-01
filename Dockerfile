@@ -27,17 +27,17 @@
          && mkdir /datastoresetup/var-www-html/ \
          && apt-get -yqq dist-upgrade \
          && apt-get -yqq --force-yes install apache2 \
-                                             gcc \
+                                             g++ \
                                              git \
-                                             libapache2-mod-php5 \
+                                             libapache2-mod-php7.2 \
                                              libmysqlclient-dev \
                                              libpcre3-dev \
                                              make \
                                              mysql-client \
                                              mysql-server \
-                                             php5-mysql \
-                                             php-apc \
-                                             php5-mcrypt \
+                                             php7.2-mysql \
+                                             php-apcu \
+                                             php7.2 \
                                              rsync \
                                              zlib1g-dev \
          && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
