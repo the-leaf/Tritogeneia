@@ -15,9 +15,6 @@
         ADD import-athena.sh /
     WORKDIR /usr/bin/rathena/		
         RUN apt-get update \
-         && apt-get -y install software-properties-common \
-         && add-apt-repository ppa:ondrej/php \
-         && apt-get update \
          && mkdir /datastore/ \
          && mkdir /datastore/etc-mysql/ \
          && mkdir /datastore/usr-bin-rathena/ \
@@ -36,8 +33,7 @@
                                              mysql-client \
                                              rsync \
                                              zlib1g-dev \
-         && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
-         && git clone https://github.com/rathena/FluxCP.git /var/www/html/FluxCP \
+         && git clone https://github.com/rathena/rathena.git /usr/bin/rathena \
          && ./configure --enable-packetver=20191224 \
          && make server \
          && service mysql start \
@@ -50,6 +46,7 @@
          && chmod a+x /*.sh \
          && chmod -R 777 /datastore \
          && chown -R 33:33 /datastore \
+         && a2enmod rewrite \
          && mv -f /login_athena.conf /usr/bin/rathena/conf/ \
          && mv -f /char_athena.conf /usr/bin/rathena/conf/ \
          && mv -f /map_athena.conf /usr/bin/rathena/conf/ \
@@ -59,12 +56,10 @@
          && rsync -az /var/lib/mysql/ /datastoresetup/var-lib-mysql/ \
         ENV DEBIAN_FRONTEND interactive
     WORKDIR /
-     EXPOSE 8888 443 3306 20333 20331 20330
+     EXPOSE 3306 20333 20331 20330
      VOLUME /datastore/
      VOLUME /atc/mysql/
      VOLUME /usr/bin/rathena/
      VOLUME /var/lib/mysql/
-        ENV PHP_UPLOAD_MAX_FILESIZE 10M
-        ENV PHP_POST_MAX_SIZE 10M
         CMD bash
  ENTRYPOINT /boottime.sh
