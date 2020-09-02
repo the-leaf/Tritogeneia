@@ -46,7 +46,6 @@
          && chmod a+x /*.sh \
          && chmod -R 777 /datastore \
          && chown -R 33:33 /datastore \
-         && a2enmod rewrite \
          && mv -f /login_athena.conf /usr/bin/rathena/conf/ \
          && mv -f /char_athena.conf /usr/bin/rathena/conf/ \
          && mv -f /map_athena.conf /usr/bin/rathena/conf/ \
